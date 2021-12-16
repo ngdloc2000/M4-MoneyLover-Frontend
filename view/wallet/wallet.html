@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<!--<h1>Tìm Kiếm</h1>-->
+<!--<form id="search-title">-->
+<!--  <input type="text" name="titles" id="titles">-->
+<!--  <input type="button" id="titleSearch" onclick="FormSearchTitle()" value="Search"-->
+<!--         placeholder="Tìm kiếm theo tiêu đề">-->
+<!--</form>-->
+
+<h1>Create Wallet</h1>
+<form id="add-wallet">
+  <table>
+<!--    <tr>-->
+<!--      <td>Balance:</td>-->
+<!--      <td><input type="number" id="balance" placeholder="balance"></td>-->
+<!--    </tr>-->
+    <tr>
+      <td>Name:</td>
+      <td><input type="text" id="name" placeholder="name"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="submit" value="Add" onclick="addNewWallet()"></td>
+    </tr>
+  </table>
+</form>
+
+<!--&lt;!&ndash;list&ndash;&gt;-->
+<h1>List Wallet</h1>
+<table id="walletList">
+
+</table>
+
+<!--edit-->
+<form id="edit-wallet" style="display: none">
+  <h1>Edit Wallet</h1>
+  <table>
+    <input type="hidden" name="idEdit" id="idEdit">
+    <tr>
+      <td>Balance:</td>
+      <td><input type="text" id="balanceEdit" placeholder="balance"></td>
+    </tr>
+    <tr>
+      <td>Name:</td>
+      <td><input type="text" id="nameEdit" placeholder="name"></td>
+    </tr>
+<!--    <tr>-->
+<!--      <td>Users:</td>-->
+<!--      <td>-->
+<!--        <select id="usersEdit">-->
+<!--          &lt;!&ndash;                    <option th:each="cate : ${categories}" th:value="${cate.id}" th:text="${cate.name}"></option>&ndash;&gt;-->
+<!--        </select>-->
+<!--      </td>-->
+<!--    </tr>-->
+    <tr>
+      <td></td>
+      <td><input type="submit" value="edit" onclick="editWallet()"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <button type="button" onclick="closeForm()">Close</button>
+    </tr>
+  </table>
+</form>
+<!--<form action="/logout">-->
+<!--    <div>-->
+<!--        <button name="logout">Logout</button>-->
+<!--    </div>-->
+<!--</form>-->
+<script src="../../javascript/wallet/wallet.js"></script>
+</body>
+</html>
