@@ -23,8 +23,8 @@ function registerUser() {
         type: "POST",
         data: fd,
         success: function (data) {
-            localStorage.setItem("currentUser", JSON.stringify(result));
-            window.location.href = "../../view/user/home.html";
+            localStorage.setItem("currentUser", JSON.stringify(data));
+            window.location.href = "../../view/user/login.html";
         }
     });
     event.preventDefault();
