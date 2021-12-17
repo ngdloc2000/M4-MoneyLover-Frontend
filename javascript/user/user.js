@@ -1,32 +1,4 @@
-function addNewUser() {
-    let name = $('#name').val();
-    let dob = $('#dob').val();
-    let phone = $('#phone').val();
-    let username = $('#username').val();
-    let password = $('#password').val();
-    let avatar = $('#avatar')[0].files[0];
-    let fd = new FormData();
-    fd.append("file", avatar);
-    let newUser = {
-        name: name,
-        dob: dob,
-        phone: phone,
-        username: username,
-        password: password
-    };
-    fd.append("newUser", JSON.stringify(newUser));
-    $.ajax({
-        url: "http://localhost:8080/api/create",
-        enctype: 'multipart/form-data',
-        processData: false,
-        contentType: false,
-        type: "POST",
-        data: fd,
-        success: successHandler
-    });
-    event.preventDefault();
-}
-
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
 function getUser(user) {
     return `<tr>` +
@@ -43,6 +15,9 @@ function successHandler() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/list",
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: function (data) {
             let content =
                 `<tr>` +
@@ -60,18 +35,6 @@ function successHandler() {
         }
     });
     event.preventDefault();
-}
-
-function logIn() {
-    let username = $('#username').val();
-    let password = $('#password').val();
-    let data = {
-        username: username,
-        password: password
-    }
-    $.ajax({
-        url: `http://localhost:8080/api/login`,
-    })
 }
 
 successHandler();
