@@ -62,4 +62,16 @@ function successHandler() {
     event.preventDefault();
 }
 
+function logIn() {
+    let username = $('#username').val();
+    let password = $('#password').val();
+    let data = {
+        username: username,
+        password: password
+    }
+    $.ajax({
+        url: `http://localhost:8080/api/login`,
+    })
+}
+
 successHandler();

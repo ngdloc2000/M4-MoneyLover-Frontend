@@ -15,7 +15,26 @@
 <body>
 <div class="container-fluid">
     <div id="top"
-         style="height: 280px; width: 100%; background: linear-gradient(#00710f 314px,#ebebeb -100%);"></div>
+         style="height: 330px; width: 100%; background: #00710f;">
+    </div>
+    <div id="bot"
+         style="background: #ebebeb; height: 400px; width: 100%">
+        <form action=""
+              style="width: 670px; height: 450px; background: white; border-radius: 20px; padding: 34px 40px 40px; position: relative; top: -100px; left: 415px">
+            <h1 style="font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 34px;">
+                Log In</h1>
+            <span style="color: #707070; font-size: 17px">Using Money Lover account</span>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="username" placeholder="Username">
+                <label for="username">Username</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+                <label for="password">Password</label>
+            </div>
+            <input type="button" value="Đăng nhập" onclick="logIn()">
+        </form>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
