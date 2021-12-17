@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display:wght@500&display=swap');
+
+.container-fluid {
+    padding: 0;
+}
+
+#info {
+    display: flex;
+    flex-direction: column;
+}
