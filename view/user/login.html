@@ -14,8 +14,11 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div id="top"
+    <div id="top" class="text-center"
          style="height: 330px; width: 100%; background: #00710f;">
+        <img height="80" width="80" style="margin-bottom: 18px; margin-top: 50px"
+             src="http://note.moneylover.vn/content/images/2016/07/new-logo-512x512.png" alt="">
+        <h2 style="color: white">Money Lover</h2>
     </div>
     <div id="bot"
          style="background: #ebebeb; height: 400px; width: 100%">
@@ -28,15 +31,20 @@
                 <input type="text" class="form-control" id="username" placeholder="Username">
                 <label for="username">Username</label>
             </div>
-            <div class="form-floating">
+            <div class="form-floating mb-3">
                 <input type="password" class="form-control" id="password" placeholder="Password">
                 <label for="password">Password</label>
             </div>
-            <input type="button" value="Đăng nhập" onclick="logIn()">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Đăng ký
+            <input type="button" class="mb-3"
+                   style="border-radius: 5px; background: #43a66a; color: white; height: 40px; border: none; padding: 10px; width: 30%; font-size: 15px; margin-right: 61px;"
+                   value="LOGIN" onclick="logIn()">
+            <span>Don’t have an account?</span>
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    style="border-radius: 5px; background: #43a66a; color: white; height: 40px; border: none; padding: 10px; width: 30%; font-size: 15px">
+                REGISTER
             </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

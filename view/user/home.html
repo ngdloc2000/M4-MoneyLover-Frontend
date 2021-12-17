@@ -37,9 +37,87 @@
             </button>
             <button style="background: none; border: none; height: 48px; width: 20px"><i class="fas fa-search"></i>
             </button>
-            <button style="border-radius: 5px; background: #43a66a; color: white; height: 40px; border: none; padding: 10px">ADD
+            <button style="border-radius: 5px; background: #43a66a; color: white; height: 40px; border: none; padding: 10px" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">ADD
                 TRANSACTION
             </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add new Transaction</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row g-3 needs-validation" novalidate>
+                                <div class="col-md-4">
+                                    <label for="amount" class="form-label">AMOUNT</label>
+                                    <input type="text" class="form-control" id="amount" value="Amount" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="date" class="form-label">DATE</label>
+                                    <input type="date" class="form-control" id="date" value="date" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="file" class="form-label">FIle</label>
+                                    <input type="file" class="form-control" id="file" value="file" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" value="name" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="wallet" class="form-label">Wallet</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                        <input type="text" class="form-control" id="wallet" aria-describedby="inputGroupPrepend" required>
+                                        <div class="invalid-feedback">
+                                            Please choose a username.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="category" class="form-label">Category</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text" id="inputGroupPrepend1">@</span>
+                                        <input type="text" class="form-control" id="category" aria-describedby="inputGroupPrepend" required>
+                                        <div class="invalid-feedback">
+                                            Please choose a username.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                        <label class="form-check-label" for="invalidCheck">
+                                            Agree to terms and conditions
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            You must agree before submitting.
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="addNewTransaction()">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
