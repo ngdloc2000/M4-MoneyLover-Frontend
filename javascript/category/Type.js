@@ -1,3 +1,4 @@
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 function getContent(data, i) {
     return ` <tr>
             <td>${i+1}</td>
@@ -15,6 +16,9 @@ function getAllType() {
     $.ajax({
         type: "GET",
         url: `http://localhost:8080/types`,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: function (data) {
             let content = "";
             for (let i = 0; i < data.length; i++) {
@@ -52,7 +56,8 @@ function addType() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
         },
         type: "POST",
         data: JSON.stringify(newType),
@@ -65,6 +70,9 @@ function removeType(id) {
     $.ajax({
         type: "DELETE",
         url: `http://localhost:8080/types/` + id,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: getAllType
     });
     event.preventDefault();
@@ -74,6 +82,9 @@ function editType(id) {
     $.ajax({
         type: "GET",
         url: `http://localhost:8080/types/${id}`,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success : function (type) {
 
             $("#editType").html( `<table>
@@ -107,7 +118,8 @@ function updateType() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + currentUser.token
         },
         type: "PUT",
         data: JSON.stringify(newType),

@@ -1,3 +1,4 @@
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 function getContent(data, i) {
     return ` <tr>
             <td>${i+1}</td>
@@ -15,6 +16,9 @@ function getAllCategory() {
     $.ajax({
         type: "GET",
         url: `http://localhost:8080/categories`,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: function (data) {
             let content = "";
             for (let i = 0; i < data.length; i++) {
@@ -27,6 +31,7 @@ function getAllCategory() {
 }
 
 function addNewCategory() {
+
     document.getElementById("addCategory").innerHTML = `<table>
         <tr>
             <td>Name:</td>
@@ -52,7 +57,8 @@ function addCategory() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
         },
         type: "POST",
         data: JSON.stringify(newCategory),
@@ -65,6 +71,9 @@ function removeCategory(id) {
     $.ajax({
         type: "DELETE",
         url: `http://localhost:8080/categories/` + id,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: getAllCategory
     });
     event.preventDefault();
@@ -74,6 +83,9 @@ function editCategory(id) {
     $.ajax({
             type: "GET",
             url: `http://localhost:8080/categories/${id}`,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success : function (category) {
 
             $("#editCategory").html( `<table>
@@ -107,7 +119,8 @@ function updateCategory() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
         },
         type: "PUT",
         data: JSON.stringify(newCategory),

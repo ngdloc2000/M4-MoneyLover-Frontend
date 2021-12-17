@@ -1,3 +1,4 @@
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 function getContent(data, i) {
     return ` <tr>
             <td>${i+1}</td>    
@@ -15,6 +16,9 @@ function getAllCateType() {
     $.ajax({
         type: "GET",
         url: `http://localhost:8080/cateType`,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: function (data) {
             let content = "";
             for (let i = 0; i < data.length; i++) {
@@ -31,6 +35,9 @@ function addNewCateType() {
     $.ajax({
         type:"GET",
         url:"http://localhost:8080/categories ",
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success:function (data){
             let contentCate = "";
             for (let i = 0; i < data.length; i++) {
@@ -42,6 +49,9 @@ function addNewCateType() {
     $.ajax({
         type:"GET",
         url:"http://localhost:8080/types ",
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success:function (data){
             let contentType="";
             for (let i = 0; i < data.length; i++) {
@@ -83,7 +93,8 @@ function addNew() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
         },
         type: "POST",
         data: JSON.stringify(newCateType),
@@ -96,6 +107,9 @@ function removeCateType(id) {
     $.ajax({
         type: "DELETE",
         url: `http://localhost:8080/cateType/` + id,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: getAllCateType
     });
     event.preventDefault();
@@ -105,10 +119,16 @@ function editCateType(id) {
     $.ajax({
         type: "GET",
         url: `http://localhost:8080/cateType/${id}`,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: function (cateType){
             $.ajax({
                 type:"GET",
                 url:"http://localhost:8080/categories ",
+                headers: {
+                    'Authorization': 'Bearer ' + currentUser.token
+                },
                 success:function (data){
                     let contentCate = "";
                     for (let i = 0; i < data.length; i++) {
@@ -120,6 +140,9 @@ function editCateType(id) {
             $.ajax({
                 type:"GET",
                 url:"http://localhost:8080/types ",
+                headers: {
+                    'Authorization': 'Bearer ' + currentUser.token
+                },
                 success:function (data){
                     let contentType="";
                     for (let i = 0; i < data.length; i++) {
@@ -169,7 +192,8 @@ function updateCateType() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + currentUser.token
         },
         type: "PUT",
         data: JSON.stringify(newCateType),
