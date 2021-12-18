@@ -29,6 +29,12 @@ function getWalletByUser() {
         }
     })
 }
+function logout() {
+    event.preventDefault;
+    localStorage.removeItem("currentUser")
+    window.location.href = "../../view/user/login.html"
+}
+
 
 getWalletByUser();
 getUserInfo();
