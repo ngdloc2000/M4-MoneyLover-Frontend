@@ -21,14 +21,13 @@
         <div class="d-flex" style="margin-left: 35px">
             <div id="avatar-img"
                  style="border-radius: 50%; height: 40px; width: 40px; margin-top: 5px; margin-right: 5px">
-
             </div>
             <div id="info">
                 <span id="name-user"></span>
                 <span id="balace-wallet" style="font-weight: bold"></span>
             </div>
         </div>
-        <div id="tool" class="d-flex justify-content-between" style="margin-right: 20px; width: 300px">
+        <div id="tool" class="d-flex justify-content-between" style="margin-right: 20px; width: 400px">
             <button style="background: none; border: none; height: 48px; width: 20px"><i class="far fa-calendar"></i>
             </button>
             <button style="background: none; border: none; height: 48px; width: 20px"><i class="fas fa-eye"></i>
@@ -59,7 +58,7 @@
                                         <div id="wallet-name" style="margin-top: 6px"></div>
                                     </div>
                                 </div>
-                                <!--                                CATEGORY-->
+                                <!--                                TYPE-->
                                 <div class="d-flex align-items-center"
                                      style="margin-left: 30px; border: none; background: white; width: 240px; height: 64px; border-radius: 10px; border:1px solid #ced4da">
                                     <span style="font-size: 12px;padding-bottom: 3px;color: rgba(0,0,0,.54); position: relative; top: -17px;">Category</span>
@@ -92,7 +91,8 @@
                                 <div style="width: 240px; height: 64px; border-radius: 10px; border:1px solid #ced4da; margin-left: 30px">
                                     <span style="font-size: 12px;padding-bottom: 3px;color: rgba(0,0,0,.54);">Name</span>
                                     <div class="d-flex align-items-center">
-                                        <input type="text" id="name" placeholder="Enter name transaction ..." style="border: none; outline: none">
+                                        <input type="text" id="name" placeholder="Enter name transaction ..."
+                                               style="border: none; outline: none">
                                     </div>
                                 </div>
                                 <!--                                FILE-->
@@ -111,10 +111,18 @@
 
                             </div>
 
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                                <button type="button" class="btn btn-primary" onclick="addNewTransaction()">CREATE
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <button style="border-radius: 5px; background: #43a66a; color: white; height: 40px; border: none; padding: 10px"
+                    type="button" class="btn btn-primary" onclick="logout()">LOGOUT
+            </button>
         </div>
     </div>
 </div>

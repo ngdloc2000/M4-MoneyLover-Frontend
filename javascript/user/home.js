@@ -33,12 +33,12 @@ function getWalletByUser() {
         }
     })
 }
+
 function logout() {
     event.preventDefault;
     localStorage.removeItem("currentUser")
     window.location.href = "../../view/user/login.html"
 }
-
 
 function getAllCategories() {
     $.ajax({
@@ -106,21 +106,57 @@ function showTypeSelected(e) {
 
 function toggleDiv(element) {
     $(element).next('div').toggle('medium');
-
 }
 
-function getTypeInfo() {
+function addNewTransaction() {
+    let name = $('#name').val();
+    let amount = $('#amount').val();
+    let date = $('#date').val();
+    let file = $('#file')[0].files[0];
+    let type = $('#typeSend').val();
+    let fd = new FormData();
+    let wallet = currentUser.id;
+    fd.append("file", file);
+    let newTransaction = {
+        name: name,
+        amount: amount,
+        date: date,
+        wallet: {
+            id: wallet
+        }
+    }
+    fd.append("newTransaction", JSON.stringify(newTransaction));
     $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/wallets/walletByUserId/" + currentUser.id,
+        url: "http://localhost:8080/transactions",
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
         headers: {
             'Authorization': 'Bearer ' + currentUser.token
         },
+        type: "POST",
+        data: fd,
         success: function (data) {
-            let balance = `${data.balance} <span>đ</span>`;
-            let walletName = `${data.name}`;
-            document.getElementById('balace-wallet').innerHTML = balance;
-            document.getElementById('wallet-name').innerHTML = walletName;
+            let idTransaction = data.id;
+            let idType = type;
+            let newTransacsionDetail = {
+                transaction: {
+                    id: idTransaction
+                },
+                type: {
+                    id: idType
+                }
+            };
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentUser.token
+                },
+                type: "POST",
+                data: JSON.stringify(newTransacsionDetail),
+                url: "http://localhost:8080/transactionDetails"
+            })
         }
     })
 }
