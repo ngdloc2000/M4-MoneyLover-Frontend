@@ -155,12 +155,30 @@ function addNewTransaction() {
                 },
                 type: "POST",
                 data: JSON.stringify(newTransacsionDetail),
-                url: "http://localhost:8080/transactionDetails"
+                url: "http://localhost:8080/transactionDetails",
+                success: function (result) {
+                    let typeId = result.type?.id;
+                    $.ajax({
+                        headers: {
+                            'Authorization': 'Bearer ' + currentUser.token
+                        },
+                        type: "GET",
+                        url: "http://localhost:8080/types/" + typeId,
+                        success: function (data) {
+                            if (data.category.id === 1) {
+                                decreaseBalance(amount);
+                            } else if (data.category.id === 2 || data.category.id === 3) {
+                                increaseBalance(amount);
+                            }
+                        }
+                    })
+                }
             })
         }
     })
 }
 
+<<<<<<< HEAD
 function getContentTransaction(transaction) {
     return `  <tr> <td scope="row"> <span class="fa fa-briefcase mr-1"></span>${transaction.name} </td>
                 <td class="text-muted">${transaction.date}</td>
@@ -187,10 +205,14 @@ function showAllTransaction() {
 
 function showAllTransactionByDate() {
     let a = $("#datetime").val();
+=======
+function decreaseBalance(amount) {
+>>>>>>> c44c073c13bc72f62fec73edfc3889487b269f53
     $.ajax({
         headers: {
             'Authorization': 'Bearer ' + currentUser.token
         },
+<<<<<<< HEAD
         type: "GET",
         url: "http://localhost:8080/transactions/findDate/"+a,
 
@@ -250,6 +272,23 @@ function page(a) {
 }
 
 
+=======
+        type: "PUT",
+        url: "http://localhost:8080/wallets/decreaseBalance/" + currentUser.id + "/" + amount,
+    })
+}
+
+function increaseBalance(amount) {
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "PUT",
+        url: "http://localhost:8080/wallets/increaseBalance/" + currentUser.id + "/" + amount,
+    })
+}
+
+>>>>>>> c44c073c13bc72f62fec73edfc3889487b269f53
 getAllCategories();
 getWalletByUser();
 getUserInfo();
