@@ -178,101 +178,11 @@ function addNewTransaction() {
     })
 }
 
-<<<<<<< HEAD
-function getContentTransaction(transaction) {
-    return `  <tr> <td scope="row"> <span class="fa fa-briefcase mr-1"></span>${transaction.name} </td>
-                <td class="text-muted">${transaction.date}</td>
-                <td class="d-flex justify-content-end align-items-center"> <span class="fa fa-long-arrow-up mr-1"></span> ${transaction.amount} </td> </tr>`;
-}
-
-function showAllTransaction() {
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/transactions/findAll",
-        headers: {
-            'Authorization': 'Bearer ' + currentUser.token
-        },
-        success: function (data) {
-            let content = "";
-            for (let i = 0; i < data.content.length; i++) {
-                content += getContentTransaction(data.content[i]);
-            }
-            document.getElementById('showTransaction').innerHTML = content;
-            document.getElementById('pageable').innerHTML = getPage(data);
-        }
-    });
-}
-
-function showAllTransactionByDate() {
-    let a = $("#datetime").val();
-=======
 function decreaseBalance(amount) {
->>>>>>> c44c073c13bc72f62fec73edfc3889487b269f53
     $.ajax({
         headers: {
             'Authorization': 'Bearer ' + currentUser.token
         },
-<<<<<<< HEAD
-        type: "GET",
-        url: "http://localhost:8080/transactions/findDate/"+a,
-
-       success: function (beta) {
-           let content = "";
-           for (let i = 0; i < beta.length; i++) {
-               content += getContentTransaction(beta[i]);
-           }
-           document.getElementById('showTransaction').innerHTML = content;
-       }
-    });
-event.preventDefault();
-}
-
-function getPage(page) {
-    if ( page.totalPages > (page.pageable.pageNumber + 1) ){
-        return `<ul class="pagination">`+
-            `<li class="page-item disabled">`+
-            `<a  href="${page.pageable.pageNumber - 1}" onclick="page(this)" >previous</a>`+
-            `</li>`+
-            `<li class="page-item"><span>${page.pageable.pageNumber + 1}</span>/`+
-            `<span>${page.totalPages}</span>`+
-            `</li>`+
-            `<li class="page-item"><a href="${page.pageable.pageNumber + 1}" onclick="page(this)" >next</a>`+
-            `</li>`+
-            `</ul>`
-    }
-    else {
-        return `<ul class="pagination">`+
-            `<li class="page-item disabled">`+
-            `<a href="${page.pageable.pageNumber - 1}" onclick="page(this)" >previous</a>`+
-            `</li>`+
-            `<li class="page-item"><span>${page.pageable.pageNumber + 1}</span>/`+
-            `<span>${page.totalPages}</span>`+
-            `</ul>`
-    }
-}
-
-function page(a) {
-    let page = a.getAttribute("href");
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/transactions/findAll?page=" + page,
-        headers: {
-            'Authorization': 'Bearer ' + currentUser.token
-        },
-        success: function (data) {
-            let content = "";
-            for (let i = 0; i < data.content.length; i++) {
-                content += getContentTransaction(data.content[i]);
-            }
-            document.getElementById('showTransaction').innerHTML = content;
-            document.getElementById('pageable').innerHTML = getPage(data);
-        }
-    });
-    event.preventDefault();
-}
-
-
-=======
         type: "PUT",
         url: "http://localhost:8080/wallets/decreaseBalance/" + currentUser.id + "/" + amount,
     })
@@ -288,8 +198,6 @@ function increaseBalance(amount) {
     })
 }
 
->>>>>>> c44c073c13bc72f62fec73edfc3889487b269f53
 getAllCategories();
 getWalletByUser();
 getUserInfo();
-showAllTransaction();
