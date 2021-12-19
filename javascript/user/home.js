@@ -161,10 +161,11 @@ function addNewTransaction() {
     })
 }
 
+
 function getContentTransaction(transaction) {
     return `  <tr> <td scope="row"> <span class="fa fa-briefcase mr-1"></span>${transaction.name} </td>
                 <td class="text-muted">${transaction.date}</td>
-                <td class="d-flex justify-content-end align-items-center"> <span class="fa fa-long-arrow-up mr-1"></span> ${transaction.amount} </td> </tr>`;
+                <td class="d-flex justify-content-end align-items-center"> ${transaction.amount} </td> </tr>`;
 }
 
 function showAllTransaction() {
@@ -192,39 +193,38 @@ function showAllTransactionByDate() {
             'Authorization': 'Bearer ' + currentUser.token
         },
         type: "GET",
-        url: "http://localhost:8080/transactions/findDate/"+a,
+        url: "http://localhost:8080/transactions/findDate/" + a,
 
-       success: function (beta) {
-           let content = "";
-           for (let i = 0; i < beta.length; i++) {
-               content += getContentTransaction(beta[i]);
-           }
-           document.getElementById('showTransaction').innerHTML = content;
-       }
+        success: function (beta) {
+            let content = "";
+            for (let i = 0; i < beta.length; i++) {
+                content += getContentTransaction(beta[i]);
+            }
+            document.getElementById('showTransaction').innerHTML = content;
+        }
     });
-event.preventDefault();
+    event.preventDefault();
 }
 
 function getPage(page) {
-    if ( page.totalPages > (page.pageable.pageNumber + 1) ){
-        return `<ul class="pagination">`+
-            `<li class="page-item disabled">`+
-            `<a  href="${page.pageable.pageNumber - 1}" onclick="page(this)" >previous</a>`+
-            `</li>`+
-            `<li class="page-item"><span>${page.pageable.pageNumber + 1}</span>/`+
-            `<span>${page.totalPages}</span>`+
-            `</li>`+
-            `<li class="page-item"><a href="${page.pageable.pageNumber + 1}" onclick="page(this)" >next</a>`+
-            `</li>`+
+    if (page.totalPages > (page.pageable.pageNumber + 1)) {
+        return `<ul class="pagination">` +
+            `<li class="page-item disabled">` +
+            `<a  href="${page.pageable.pageNumber - 1}" onclick="page(this)" >previous</a>` +
+            `</li>` +
+            `<li class="page-item"><span>${page.pageable.pageNumber + 1}</span>/` +
+            `<span>${page.totalPages}</span>` +
+            `</li>` +
+            `<li class="page-item"><a href="${page.pageable.pageNumber + 1}" onclick="page(this)" >next</a>` +
+            `</li>` +
             `</ul>`
-    }
-    else {
-        return `<ul class="pagination">`+
-            `<li class="page-item disabled">`+
-            `<a href="${page.pageable.pageNumber - 1}" onclick="page(this)" >previous</a>`+
-            `</li>`+
-            `<li class="page-item"><span>${page.pageable.pageNumber + 1}</span>/`+
-            `<span>${page.totalPages}</span>`+
+    } else {
+        return `<ul class="pagination">` +
+            `<li class="page-item disabled">` +
+            `<a href="${page.pageable.pageNumber - 1}" onclick="page(this)" >previous</a>` +
+            `</li>` +
+            `<li class="page-item"><span>${page.pageable.pageNumber + 1}</span>/` +
+            `<span>${page.totalPages}</span>` +
             `</ul>`
     }
 }
@@ -249,8 +249,7 @@ function page(a) {
     event.preventDefault();
 }
 
-
+showAllTransaction();
 getAllCategories();
 getWalletByUser();
 getUserInfo();
-showAllTransaction();

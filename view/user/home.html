@@ -22,6 +22,7 @@
     <script src="../../javascript/user/home.js"></script>
     <script src="../../javascript/transaction/transaction.js"></script>
     <link rel="stylesheet" href="../../css/transaction.css">
+<!--    <script src="../../javascript/user/honey.js"></script>-->
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins&display=swap');
@@ -33,7 +34,6 @@
     }
 
     body {
-        background-color: #777;
         font-family: 'Poppins', sans-serif
     }
 
@@ -446,14 +446,14 @@
             <div class="d-flex justify-content-start align-items-center">
                 <p class="fa fa-long-arrow-down"></p>
                 <p class="text mx-3">Income</p>
-                <p class="text-white ml-4 money">$9,758.23</p>
+                <p class="text-white ml-4 money" id="income1"> </p>
             </div>
         </div>
         <div class="col-md-6">
             <div class="d-flex justify-content-md-end align-items-center">
                 <div class="fa fa-long-arrow-up"></div>
                 <div class="text mx-3">Expense</div>
-                <div class="text-white ml-4 money">$961.23</div>
+                <div class="text-white ml-4 money" id="expense"></div>
             </div>
         </div>
     </div>
@@ -480,7 +480,6 @@
     <div class="d-flex justify-content-between align-items-center results"> <span class="pl-md-3">Showing<b class="text-white"> 1-7 of 200 </b> transactions</span>
         <div class="pt-3">
             <nav aria-label="Page navigation example" id="pageable">
-
 
                 </ul>
             </nav>
