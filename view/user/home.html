@@ -8,11 +8,325 @@
     <!--    Fontawesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     <title>Hello, world!</title>
     <link rel="stylesheet" href="../../css/main.css">
     <script src="../../javascript/user/home.js"></script>
+    <script src="../../javascript/transaction/transaction.js"></script>
+    <link rel="stylesheet" href="../../css/transaction.css">
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins&display=swap');
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box
+    }
+
+    body {
+        background-color: #777;
+        font-family: 'Poppins', sans-serif
+    }
+
+    .wrapper {
+        background-color: #222;
+        min-height: 100px;
+        max-width: 800px;
+        margin: 10px auto;
+        padding: 10px 30px
+    }
+
+    .dark,
+    .input:focus {
+        background-color: #222
+    }
+    .dateOfTransaction,
+    .input:focus{
+        border-radius: 10px;
+    }
+
+    .navbar {
+        padding: 0.5rem 0rem
+    }
+
+    .navbar .navbar-brand {
+        font-size: 30px
+    }
+
+    #income {
+        border-right: 1px solid #bbb
+    }
+
+    .notify {
+        display: none
+    }
+
+    .nav-item .nav-link .fa-bell-o,
+    .fa-long-arrow-down,
+    .fa-long-arrow-up {
+        padding: 10px 10px;
+        background-color: #444;
+        border-radius: 50%;
+        position: relative;
+        font-size: 18px
+    }
+
+    .nav-item .nav-link .fa-bell-o::after {
+        content: '';
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: #ffc0cb;
+        right: 10px;
+        top: 10px
+    }
+
+    .nav-item input {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        padding: 3px 8px;
+        width: 75%;
+        color: #eee
+    }
+
+    .nav-item .fa-search {
+        font-size: 18px;
+        color: #bbb;
+        cursor: pointer
+    }
+
+    .navbar-nav:last-child {
+        display: flex;
+        align-items: center;
+        width: 40%
+    }
+
+    .navbar-nav .nav-item {
+        padding: 0px 0px 0px 10px
+    }
+
+    .navbar-brand p {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 3px
+    }
+
+    .text {
+        color: #bbb
+    }
+
+    .money {
+        font-family: 'Lato', sans-serif
+    }
+
+    .fa-long-arrow-down,
+    .fa-long-arrow-up {
+        padding-left: 12px;
+        padding-top: 8px;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        font-size: 1rem;
+        font-weight: 100;
+        color: #28df99
+    }
+
+    .fa-long-arrow-up {
+        color: #ffa500
+    }
+
+    .nav.nav-tabs {
+        border: none
+    }
+
+    .nav.nav-tabs .nav-item .nav-link {
+        color: #bbb;
+        border: none
+    }
+
+    .nav.nav-tabs .nav-link.active {
+        background-color: #222;
+        border: none;
+        color: #fff;
+        border-bottom: 4px solid #fff
+    }
+
+    .nav.nav-tabs .nav-item .nav-link:hover {
+        border: none;
+        color: #eee
+    }
+
+    .nav.nav-tabs .nav-item .nav-link.active:hover {
+        border-bottom: 4px solid #fff
+    }
+
+    .nav.nav-tabs .nav-item .nav-link:focus {
+        border-bottom: 4px solid #fff;
+        color: #fff
+    }
+
+    .table-dark {
+        background-color: #222
+    }
+
+    .table thead th {
+        text-transform: uppercase;
+        color: #bbb;
+        font-size: 12px
+    }
+
+    .table thead th,
+    .table td,
+    .table th {
+        border: none;
+        overflow: auto auto
+    }
+
+    td .fa-briefcase,
+    td .fa-bed,
+    td .fa-exchange,
+    td .fa-cutlery {
+        color: #ff6347;
+        background-color: #444;
+        padding: 5px;
+        border-radius: 50%
+    }
+
+    td .fa-bed,
+    td .fa-cutlery {
+        color: #40a8c4
+    }
+
+    td .fa-exchange {
+        color: #b15ac7
+    }
+
+    tbody tr td .fa-cc-mastercard,
+    tbody tr td .fa-cc-visa {
+        color: #bbb
+    }
+
+    tbody tr td.text-muted {
+        font-family: 'Lato', sans-serif
+    }
+
+    tbody tr td .fa-long-arrow-up,
+    tbody tr td .fa-long-arrow-down {
+        font-size: 12px;
+        padding-left: 7px;
+        padding-top: 3px;
+        height: 20px;
+        width: 20px
+    }
+
+    .results span {
+        color: #bbb;
+        font-size: 12px
+    }
+
+    .results span b {
+        font-family: 'Lato', sans-serif
+    }
+
+    .pagination .page-item .page-link {
+        background-color: #444;
+        color: #fff;
+        padding: 0.3rem .75rem;
+        border: none;
+        border-radius: 0
+    }
+
+    .pagination .page-item .page-link span {
+        font-size: 16px
+    }
+
+    .pagination .page-item.disabled .page-link {
+        background-color: #333;
+        color: #eee;
+        cursor: crosshair
+    }
+
+    @media(min-width:768px) and (max-width: 991px) {
+        .wrapper {
+            margin: auto
+        }
+
+        .navbar-nav:last-child {
+            display: flex;
+            align-items: start;
+            justify-content: center;
+            width: 100%
+        }
+
+        .notify {
+            display: inline
+        }
+
+        .nav-item .fa-search {
+            padding-left: 10px
+        }
+
+        .navbar-nav .nav-item {
+            padding: 0px
+        }
+    }
+
+    @media(min-width: 300px) and (max-width: 767px) {
+        .wrapper {
+            margin: auto
+        }
+
+        .navbar-nav:last-child {
+            display: flex;
+            align-items: start;
+            justify-content: center;
+            width: 100%
+        }
+
+        .notify {
+            display: inline
+        }
+
+        .nav-item .fa-search {
+            padding-left: 10px
+        }
+
+        .navbar-nav .nav-item {
+            padding: 0px
+        }
+
+        #income {
+            border: none
+        }
+    }
+
+    @media(max-width: 400px) {
+        .wrapper {
+            padding: 10px 15px;
+            margin: auto
+        }
+
+        .btn {
+            font-size: 12px;
+            padding: 10px
+        }
+
+        .nav.nav-tabs .nav-link {
+            padding: 10px
+        }
+    }
+</style>
 <body>
 <div class="container-fluid d-flex">
     <div class="container-fluid" style="background: black; width: 6%; height: auto"></div>
@@ -108,13 +422,6 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
                             <button type="button" class="btn btn-primary" onclick="addNewTransaction()">SAVE</button>
-
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                                <button type="button" class="btn btn-primary" onclick="addNewTransaction()">CREATE
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -126,6 +433,62 @@
         </div>
     </div>
 </div>
+<div class="wrapper rounded">
+    <nav class="navbar navbar-expand-lg navbar-dark dark d-lg-flex align-items-lg-start"> <a class="navbar-brand" href="#">Transactions <p class="text-muted pl-1">Welcome to your transactions</p> </a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-lg-auto">
+                <li class="nav-item "> <a href="#" onclick="showAllTransactionByDate()"><span class="fa fa-search"></span></a> <input   type="date" id="datetime" class="dateOfTransaction" > </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="row mt-2 pt-2">
+        <div class="col-md-6" id="income">
+            <div class="d-flex justify-content-start align-items-center">
+                <p class="fa fa-long-arrow-down"></p>
+                <p class="text mx-3">Income</p>
+                <p class="text-white ml-4 money">$9,758.23</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="d-flex justify-content-md-end align-items-center">
+                <div class="fa fa-long-arrow-up"></div>
+                <div class="text mx-3">Expense</div>
+                <div class="text-white ml-4 money">$961.23</div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <ul class="nav nav-tabs w-75">
+            <li class="nav-item"> <a class="nav-link active" href="#history">History</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#">Reports</a> </li>
+        </ul>
+    </div>
+    <div class="table-responsive mt-3">
+        <table class="table table-dark table-borderless">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date</th>
+                <th scope="col" class="text-right">Amount</th>
+            </tr>
+            </thead>
+            <tbody id="showTransaction">
+
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-between align-items-center results"> <span class="pl-md-3">Showing<b class="text-white"> 1-7 of 200 </b> transactions</span>
+        <div class="pt-3">
+            <nav aria-label="Page navigation example" id="pageable">
+
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
