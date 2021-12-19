@@ -5,15 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+    <!--    Fontawesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-          integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <title>Hello, world!</title>
     <link rel="stylesheet" href="../../css/main.css">
     <script src="../../javascript/user/home.js"></script>
@@ -24,7 +19,8 @@
     <div class="container-fluid d-flex justify-content-between align-items-center"
          style="width: 94%; height: 62px">
         <div class="d-flex" style="margin-left: 35px">
-            <div id="avatar-img" style="border-radius: 50%; height: 40px; width: 40px; margin-top: 5px; margin-right: 5px">
+            <div id="avatar-img"
+                 style="border-radius: 50%; height: 40px; width: 40px; margin-top: 5px; margin-right: 5px">
 
             </div>
             <div id="info">
@@ -39,10 +35,12 @@
             </button>
             <button style="background: none; border: none; height: 48px; width: 20px"><i class="fas fa-search"></i>
             </button>
-            <button style="border-radius: 5px; background: #43a66a; color: white; height: 40px; border: none; padding: 10px" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">ADD
+            <button style="border-radius: 5px; background: #43a66a; color: white; height: 40px; border: none; padding: 10px"
+                    type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">ADD
                 TRANSACTION
             </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -50,66 +48,71 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="row g-3 needs-validation" novalidate>
-                                <div class="col-md-4">
-                                    <label for="wallet" class="form-label">WALLET</label>
-                                    <input type="button" class="form-control" id="wallet" value="wallet" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
+                            <div class="row d-flex" style="margin-left: 5px">
+                                <!--                                NAME WALLET-->
+                                <div style="width: 240px; height: 64px; border-radius: 10px; border:1px solid #ced4da">
+                                    <span style="font-size: 12px;padding-bottom: 3px;color: rgba(0,0,0,.54);">Wallet</span>
+                                    <div class="d-flex align-items-center">
+                                        <div id="wallet-img"
+                                             style="border-radius: 50%; height: 25px; width: 25px; margin-top: 5px; margin-right: 5px">
+                                        </div>
+                                        <div id="wallet-name" style="margin-top: 6px"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="category" class="form-label">CATEGORY</label>
-                                    <button type="button" class="form-control" id="category" data-toggle="modal" data-target="#Modal2">
-                                        <i class="far fa-question-circle"></i>  Select Category
-                                    </button>
+                                <!--                                CATEGORY-->
+                                <div class="d-flex align-items-center"
+                                     style="margin-left: 30px; border: none; background: white; width: 240px; height: 64px; border-radius: 10px; border:1px solid #ced4da">
+                                    <span style="font-size: 12px;padding-bottom: 3px;color: rgba(0,0,0,.54); position: relative; top: -17px;">Category</span>
+                                    <div id="typeSelected">
+                                        <div class="NestedSelect">
+                                            <a onclick="toggleDiv(this)">Select Category</a>
+                                            <div id="categoryList">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--                                AMOUNT-->
+                                <div style="width: 240px; height: 64px; border-radius: 10px; border:1px solid #ced4da; margin-left: 30px">
+                                    <span style="font-size: 12px;padding-bottom: 3px;color: rgba(0,0,0,.54);">Amount</span>
+                                    <div class="d-flex align-items-center">
+                                        <input type="text" id="amount" value="0" style="border: none; outline: none">
+                                    </div>
+                                </div>
+                            </div>
 
-                                    <div class="valid-feedback">
-                                        Looks good!
+                            <div class="row d-flex" style="margin-left: 5px">
+                                <!--                                DATE-->
+                                <div style="width: 240px; height: 64px; border-radius: 10px; border:1px solid #ced4da">
+                                    <span style="font-size: 12px;padding-bottom: 3px;color: rgba(0,0,0,.54);">Date</span>
+                                    <div class="d-flex align-items-center">
+                                        <input type="date" id="date" style="border: none; outline: none">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="amount" class="form-label">AMOUNT</label>
-                                    <input type="text" class="form-control" id="amount" placeholder="0" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
+                                <!--                                NAME-->
+                                <div style="width: 240px; height: 64px; border-radius: 10px; border:1px solid #ced4da; margin-left: 30px">
+                                    <span style="font-size: 12px;padding-bottom: 3px;color: rgba(0,0,0,.54);">Name</span>
+                                    <div class="d-flex align-items-center">
+                                        <input type="text" id="name" placeholder="Enter name transaction ..." style="border: none; outline: none">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="date" class="form-label">DATE</label>
-                                    <input type="date" class="form-control" id="date" value="date" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
+                                <!--                                FILE-->
+                                <div style="width: 240px; height: 64px; border-radius: 10px; border:1px solid #ced4da; margin-left: 30px">
+                                    <span style="font-size: 12px;padding-bottom: 3px;color: rgba(0,0,0,.54);">File</span>
+                                    <div class="d-flex align-items-center">
+                                        <input type="file" id="file" style="border: none; outline: none">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="name" class="form-label">NOTE</label>
-                                    <input type="text" class="form-control-name" id="name" placeholder="Note" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                            </form>
-                            <form class="row g-3 needs-validation" novalidate>
-                                <div class="col-md-4">
-                                    <label for="file" class="form-label">PHOTO</label>
-                                    <input type="file" class="form-control" id="file" value="file" required>
-                                    <div class="valid-feedback">
-                                        Looks good!
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
-                            <button type="button" class="btn btn-primary" onclick="addNewTransaction()">SAVE</button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+                                <button type="button" class="btn btn-primary" onclick="addNewTransaction()">CREATE</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

@@ -130,4 +130,4 @@ function updateCategory() {
     event.preventDefault();
 }
 
-getAllCategory();
+// getAllCategory();
