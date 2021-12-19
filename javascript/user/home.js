@@ -155,9 +155,46 @@ function addNewTransaction() {
                 },
                 type: "POST",
                 data: JSON.stringify(newTransacsionDetail),
-                url: "http://localhost:8080/transactionDetails"
+                url: "http://localhost:8080/transactionDetails",
+                success: function (result) {
+                    let typeId = result.type?.id;
+                    $.ajax({
+                        headers: {
+                            'Authorization': 'Bearer ' + currentUser.token
+                        },
+                        type: "GET",
+                        url: "http://localhost:8080/types/" + typeId,
+                        success: function (data) {
+                            if (data.category.id === 1) {
+                                decreaseBalance(amount);
+                            } else if (data.category.id === 2 || data.category.id === 3) {
+                                increaseBalance(amount);
+                            }
+                        }
+                    })
+                }
             })
         }
+    })
+}
+
+function decreaseBalance(amount) {
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "PUT",
+        url: "http://localhost:8080/wallets/decreaseBalance/" + currentUser.id + "/" + amount,
+    })
+}
+
+function increaseBalance(amount) {
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "PUT",
+        url: "http://localhost:8080/wallets/increaseBalance/" + currentUser.id + "/" + amount,
     })
 }
 
