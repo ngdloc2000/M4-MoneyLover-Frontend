@@ -99,7 +99,8 @@ function addNew() {
         type: "POST",
         data: JSON.stringify(newCateType),
         url: `http://localhost:8080/cateType`,
-        success: getAllCateType
+        success: getAllCateType 
+
     });
     event.preventDefault();
 }
