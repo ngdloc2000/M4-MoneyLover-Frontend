@@ -13,11 +13,17 @@ a {
 ul, li {
     list-style: none;
 }
+
+.font-awesome .fa {
+    font-family: "Font Awesome 5 Free", Open Sans;
+    font-weight:501;
+}
+
 .modal-content {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 1000px;
+    width: 836px;
     pointer-events: auto;
     background-color: #fff;
     background-clip: padding-box;
@@ -28,7 +34,7 @@ ul, li {
 .modal {
     position: fixed;
     top: 0;
-    left: -250px;
+    left: -170px;
     z-index: 1055;
     display: none;
     width: 100%;
@@ -87,4 +93,50 @@ ul, li {
     margin-top: calc(-4 * var(--bs-gutter-y));
     margin-right: calc(-.5 * var(--bs-gutter-x));
     margin-left: calc(-.5 * var(--bs-gutter-x));
+    margin-bottom: 30px;
+}
+
+.NestedSelect {
+    display: inline-block;
+    height: 100%;
+    border: none;
+    position: relative;
+    top: 9px;
+    left: -48px;
+}
+
+.NestedSelect a:hover, .NestedSelect span:hover  {
+    background-color: #d6d9de;
+    color: White;
+    cursor: pointer;
+}
+
+.NestedSelect input[type="radio"] {
+    display: none;
+}
+
+.NestedSelect input[type="radio"] + span {
+    display: block;
+    padding-left: 0px;
+    padding-right: 5px;
+}
+
+.NestedSelect input[type="radio"]:checked + span {
+    background-color: Black;
+    color: White;
+}
+
+.NestedSelect div {
+    display: none;
+    margin-left: 15px;
+    border-left: 1px black
+    solid;
+}
+
+.NestedSelect label > span:before, .NestedSelect a:before{
+    content: '- ';
+}
+
+.NestedSelect a {
+    display: block;
 }
