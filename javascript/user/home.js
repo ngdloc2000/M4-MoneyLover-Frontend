@@ -204,11 +204,6 @@ function increaseBalance(amount) {
     })
 }
 
-function getContentTransaction(transaction) {
-    return `  <tr> <td scope="row"> <span class="fa fa-briefcase mr-1"></span>${transaction.name} </td>
-                <td class="text-muted">${transaction.date}</td>
-                <td class="d-flex justify-content-end align-items-center"> ${transaction.amount} </td> </tr>`;
-}
 
 function showAllTransactionByUserId() {
     $.ajax({
@@ -218,7 +213,11 @@ function showAllTransactionByUserId() {
             'Authorization': 'Bearer ' + currentUser.token
         },
         success: function (data) {
-            let content = "";
+            let content = ` <tr>
+                <th scope="col">NAME</th>
+                <th scope="col">DATE</th>
+                <th scope="col" class="text-right">AMOUNT</th>
+            </tr>`;
             for (let i = 0; i < data.length; i++) {
                 content += getContentTransaction(data[i]);
             }
@@ -226,9 +225,79 @@ function showAllTransactionByUserId() {
             // document.getElementById('pageable').innerHTML = getPage(data);
         }
     });
+    getAmountByExpense();
+    getAmountByIncome();
 }
 
-function showAllTransactionByDate() {
+
+function getContentTransaction(transaction) {
+    return `<tr> <td scope="row"><a style="color: white" href="#" data-toggle="modal" data-target="#exampleModal1" > <span class="fa fa-briefcase mr-1" id="categoryList"> </span>${transaction.name} </a></td>
+                <td class="text-muted">${transaction.date}</td>
+                <td class="d-flex justify-content-end align-items-center"> ${transaction.amount} </td> </tr>`;
+}
+
+function showAllSumAmountByCategoryId() {
+                $.ajax({
+                    headers: {
+                        'Authorization': 'Bearer ' + currentUser.token
+                    },
+                    type: "GET",
+                    url: "http://localhost:8080/transactions/showAllSumAmountByCategoryId/" + 1,
+                    success: function (sum) {
+                        document.getElementById("sum1").innerHTML = sum;
+                    }
+                })
+            $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/showAllSumAmountByCategoryId/" + 2,
+        success: function (sum) {
+            document.getElementById("sum2").innerHTML = sum;
+        }
+    })
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/showAllSumAmountByCategoryId/" + 3,
+        success: function (sum) {
+            document.getElementById("sum3").innerHTML = sum;
+        }
+    })
+    document.getElementById("showTransaction").innerHTML = getContentCategoryList();
+}
+
+
+
+
+
+
+function getContentCategoryList() {
+    return `<tr><th>NAME CATEGORY</th>
+            <th></th>
+            <th>SUM AMOUNT</th> </tr>
+            <tr>
+                <td><button style="border: none; background-color: #212529; color: white">Chi Phí</button></td>
+                <td></td>
+                <td id="sum1"></td>
+            </tr>
+            <tr>
+                <td><button style="border: none; background-color: #212529; color: white">Đi Vay</button></td>
+                <td></td>
+                <td id="sum2"></td>
+            </tr>
+            <tr>
+                <td><button style="border: none; background-color: #212529; color: white">Thu Nhập</button></td>
+                <td></td>
+                <td id="sum3"></td>
+            </tr>`
+}
+
+
+function showAllTransactionAndSumByDate() {
     let a = $("#datetime").val();
     $.ajax({
         headers: {
@@ -238,11 +307,37 @@ function showAllTransactionByDate() {
         url: "http://localhost:8080/transactions/findDate/" + a,
 
         success: function (beta) {
-            let content = "";
+            let content = ` <tr>
+                <th scope="col">NAME</th>
+                <th scope="col">Date</th>
+                <th scope="col" class="text-right">Amount</th>
+            </tr>`;
             for (let i = 0; i < beta.length; i++) {
                 content += getContentTransaction(beta[i]);
             }
             document.getElementById('showTransaction').innerHTML = content;
+        }
+    })
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/sumAmountExpenseByDate/" + a,
+        success: function (data) {
+            document.getElementById('expense').innerHTML = data;
+
+        }
+    })
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/sumAmountIncomeByDate/" + a,
+        success: function (data) {
+            document.getElementById('income1').innerHTML = data;
+
         }
     });
     event.preventDefault();
