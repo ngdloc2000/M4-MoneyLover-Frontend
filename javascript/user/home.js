@@ -231,7 +231,7 @@ function showAllTransactionByUserId() {
 
 
 function getContentTransaction(transaction) {
-    return `<tr> <td scope="row"><a href="#"> <span class="fa fa-briefcase mr-1" id="categoryList"></span>${transaction.name} </a></td>
+    return `<tr> <td scope="row"><a style="color: white" href="#" data-toggle="modal" data-target="#exampleModal1" > <span class="fa fa-briefcase mr-1" id="categoryList"> </span>${transaction.name} </a></td>
                 <td class="text-muted">${transaction.date}</td>
                 <td class="d-flex justify-content-end align-items-center"> ${transaction.amount} </td> </tr>`;
 }
@@ -280,17 +280,17 @@ function getContentCategoryList() {
             <th></th>
             <th>SUM AMOUNT</th> </tr>
             <tr>
-                <td>Chi Phí</td>
+                <td><button style="border: none; background-color: #212529; color: white">Chi Phí</button></td>
                 <td></td>
                 <td id="sum1"></td>
             </tr>
             <tr>
-                <td>Đi Vay</td>
+                <td><button style="border: none; background-color: #212529; color: white">Đi Vay</button></td>
                 <td></td>
                 <td id="sum2"></td>
             </tr>
             <tr>
-                <td>Thu Nhập</td>
+                <td><button style="border: none; background-color: #212529; color: white">Thu Nhập</button></td>
                 <td></td>
                 <td id="sum3"></td>
             </tr>`
@@ -392,6 +392,8 @@ function getPage(page) {
     }
 }
 
+
+
 function page(a) {
     let page = a.getAttribute("href");
     $.ajax({
@@ -446,3 +448,24 @@ getAmountByIncome();
 showAllTransactionByUserId();
 getAllCategories();
 getUserInfo();
+
+// <div className="modal fade" id="exampleModal1" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+// //      aria-hidden="true">
+//     <div className="modal-dialog" role="document">
+//         <div className="modal-content">
+//             <div className="modal-header">
+//                 <h5 className="modal-title" id="exampleModalLabel1">Modal title</h5>
+//                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+//                     <span aria-hidden="true">&times;</span>
+//                 </button>
+//             </div>
+//             <div className="modal-body">
+//                 ...
+//             </div>
+//             <div className="modal-footer">
+//                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+//                 <button type="button" className="btn btn-primary">Save changes</button>
+//             </div>
+//         </div>
+//     </div>
+// </div>
