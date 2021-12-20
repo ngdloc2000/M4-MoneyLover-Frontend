@@ -204,11 +204,7 @@ function increaseBalance(amount) {
     })
 }
 
-function getContentTransaction(transaction) {
-    return `  <tr> <td scope="row"> <span class="fa fa-briefcase mr-1"></span>${transaction.name} </td>
-                <td class="text-muted">${transaction.date}</td>
-                <td class="d-flex justify-content-end align-items-center"> ${transaction.amount} </td> </tr>`;
-}
+
 
 function showAllTransactionByUserId() {
     $.ajax({
@@ -227,8 +223,14 @@ function showAllTransactionByUserId() {
         }
     });
 }
+function getContentTransaction(transaction) {
+    return `  <tr> <td scope="row"><a href="#"> <span class="fa fa-briefcase mr-1"></span>${transaction.name} </a></td>
+                <td class="text-muted">${transaction.date}</td>
+                <td class="d-flex justify-content-end align-items-center"> ${transaction.amount} </td> </tr>`;
+}
 
-function showAllTransactionByDate() {
+
+function showAllTransactionAndSumByDate(){
     let a = $("#datetime").val();
     $.ajax({
         headers: {
@@ -243,6 +245,28 @@ function showAllTransactionByDate() {
                 content += getContentTransaction(beta[i]);
             }
             document.getElementById('showTransaction').innerHTML = content;
+        }
+    })
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/sumAmountExpenseByDate/" + a,
+        success: function (data){
+            document.getElementById('expense').innerHTML = data;
+
+        }
+    })
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/sumAmountIncomeByDate/" + a,
+        success: function (data){
+            document.getElementById('income1').innerHTML = data;
+
         }
     });
     event.preventDefault();
