@@ -29,24 +29,24 @@ window.onload = function () {
     var dataPoints = [];
     var chart;
     $.ajaxSetup({
-        headers : {
+        headers: {
             'Authorization': 'Bearer ' + currentUser.token
         }
     });
     $.getJSON("http://localhost:8080/transactions/sumAmountEachDayInMonth/1/1/12",
         function (data) {
-        $.each(data, function (key, value) {
-            dataPoints.push({x: parseInt(value.day), y: parseInt(value.amount)});
+            $.each(data, function (key, value) {
+                dataPoints.push({y: parseInt(value.amount), label: parseInt(value.day)});
+            });
+            chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "Live Chart with dataPoints from External JSON"
+                },
+                data: [{
+                    type: "column",
+                    dataPoints: dataPoints,
+                }]
+            });
+            chart.render();
         });
-        chart = new  CanvasJS.Chart("chartContainer",{
-            title: {
-                text: "Live Chart with dataPoints from External JSON"
-            },
-            data: [{
-                type: "column",
-                dataPoints: dataPoints,
-            }]
-        });
-        chart.render();
-    });
 }
