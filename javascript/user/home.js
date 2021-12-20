@@ -155,12 +155,54 @@ function addNewTransaction() {
                 },
                 type: "POST",
                 data: JSON.stringify(newTransacsionDetail),
-                url: "http://localhost:8080/transactionDetails"
+                url: "http://localhost:8080/transactionDetails",
+                success: function (result) {
+                    let typeId = result.type?.id;
+                    $.ajax({
+                        headers: {
+                            'Authorization': 'Bearer ' + currentUser.token
+                        },
+                        type: "GET",
+                        url: "http://localhost:8080/types/" + typeId,
+                        success: function (data) {
+                            if (data.category.id === 1) {
+                                decreaseBalance(amount);
+                                getAmountByExpense();
+                                getAmountByIncome();
+                            } else if (data.category.id === 2 || data.category.id === 3) {
+                                increaseBalance(amount);
+                                getAmountByExpense();
+                                getAmountByIncome();
+                            }
+                            getWalletByUser();
+                            showAllTransactionByUserId();
+                        }
+                    })
+                }
             })
         }
     })
 }
 
+function decreaseBalance(amount) {
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "PUT",
+        url: "http://localhost:8080/wallets/decreaseBalance/" + currentUser.id + "/" + amount,
+    })
+}
+
+function increaseBalance(amount) {
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "PUT",
+        url: "http://localhost:8080/wallets/increaseBalance/" + currentUser.id + "/" + amount,
+    })
+}
 
 function getContentTransaction(transaction) {
     return `  <tr> <td scope="row"> <span class="fa fa-briefcase mr-1"></span>${transaction.name} </td>
@@ -168,20 +210,20 @@ function getContentTransaction(transaction) {
                 <td class="d-flex justify-content-end align-items-center"> ${transaction.amount} </td> </tr>`;
 }
 
-function showAllTransaction() {
+function showAllTransactionByUserId() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/transactions/findAll",
+        url: "http://localhost:8080/transactions/showAllTransByWalletId/" + currentUser.id,
         headers: {
             'Authorization': 'Bearer ' + currentUser.token
         },
         success: function (data) {
             let content = "";
-            for (let i = 0; i < data.content.length; i++) {
-                content += getContentTransaction(data.content[i]);
+            for (let i = 0; i < data.length; i++) {
+                content += getContentTransaction(data[i]);
             }
             document.getElementById('showTransaction').innerHTML = content;
-            document.getElementById('pageable').innerHTML = getPage(data);
+            // document.getElementById('pageable').innerHTML = getPage(data);
         }
     });
 }
@@ -204,6 +246,32 @@ function showAllTransactionByDate() {
         }
     });
     event.preventDefault();
+}
+
+function getAmountByExpense() {
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/sumAmountByExpense/" + currentUser.id,
+        success: function (data) {
+            document.getElementById('expense').innerHTML = data;
+        }
+    })
+}
+
+function getAmountByIncome() {
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/sumAmountByIncome/" + currentUser.id,
+        success: function (data) {
+            document.getElementById('income1').innerHTML = data;
+        }
+    })
 }
 
 function getPage(page) {
@@ -233,7 +301,7 @@ function page(a) {
     let page = a.getAttribute("href");
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/transactions/findAll?page=" + page,
+        url: "http://localhost:8080/transactions/showAllTransByWalletId?page=" + page,
         headers: {
             'Authorization': 'Bearer ' + currentUser.token
         },
@@ -249,7 +317,37 @@ function page(a) {
     event.preventDefault();
 }
 
-showAllTransaction();
+document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll('.sidebar .nav-link').forEach(function(element){
+
+        element.addEventListener('click', function (e) {
+
+            let nextEl = element.nextElementSibling;
+            let parentEl  = element.parentElement;
+
+            if(nextEl) {
+                e.preventDefault();
+                let mycollapse = new bootstrap.Collapse(nextEl);
+
+                if(nextEl.classList.contains('show')){
+                    mycollapse.hide();
+                } else {
+                    mycollapse.show();
+                    // find other submenus with class=show
+                    var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
+                    // if it exists, then close all of them
+                    if(opened_submenu){
+                        new bootstrap.Collapse(opened_submenu);
+                    }
+                }
+            }
+        }); // addEventListener
+    }) // forEach
+});
+
+getWalletByUser()
+getAmountByExpense();
+getAmountByIncome();
+showAllTransactionByUserId();
 getAllCategories();
-getWalletByUser();
 getUserInfo();
