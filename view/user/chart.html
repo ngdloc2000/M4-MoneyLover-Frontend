@@ -11,6 +11,15 @@
     <title>Hello, world!</title>
 </head>
 <body>
+<div class="mb-5" style="width: 500px">
+    <h5 class="mb-3">Thống kê số tiền chi ra các ngày trong 1 tháng</h5>
+    <span class="mb-3">Category</span>
+    <select id="cateSelected" class="form-select mb-3">
+    </select>
+    <span>Tháng cần xem</span>
+    <input type="text" class="form-control mb-3" id="month">
+    <button onclick="sumAmount()">Kết quả</button>
+</div>
 <div id="chartContainer" style="height: 300px; width: 1000px;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
