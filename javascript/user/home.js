@@ -1,5 +1,14 @@
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
+$(document).click(function(event) {
+    if(
+        $('.toggle > input').is(':checked') &&
+        !$(event.target).parents('.toggle').is('.toggle')
+    ) {
+        $('.toggle > input').prop('checked', false);
+    }
+})
+
 function getUserInfo() {
     $.ajax({
         type: "GET",
