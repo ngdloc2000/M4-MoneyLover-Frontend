@@ -205,7 +205,6 @@ function increaseBalance(amount) {
 }
 
 
-
 function showAllTransactionByUserId() {
     $.ajax({
         type: "GET",
@@ -214,7 +213,11 @@ function showAllTransactionByUserId() {
             'Authorization': 'Bearer ' + currentUser.token
         },
         success: function (data) {
-            let content = "";
+            let content = ` <tr>
+                <th scope="col">NAME</th>
+                <th scope="col">DATE</th>
+                <th scope="col" class="text-right">AMOUNT</th>
+            </tr>`;
             for (let i = 0; i < data.length; i++) {
                 content += getContentTransaction(data[i]);
             }
@@ -222,15 +225,79 @@ function showAllTransactionByUserId() {
             // document.getElementById('pageable').innerHTML = getPage(data);
         }
     });
+    getAmountByExpense();
+    getAmountByIncome();
 }
+
+
 function getContentTransaction(transaction) {
-    return `  <tr> <td scope="row"><a href="#"> <span class="fa fa-briefcase mr-1"></span>${transaction.name} </a></td>
+    return `<tr> <td scope="row"><a href="#"> <span class="fa fa-briefcase mr-1" id="categoryList"></span>${transaction.name} </a></td>
                 <td class="text-muted">${transaction.date}</td>
                 <td class="d-flex justify-content-end align-items-center"> ${transaction.amount} </td> </tr>`;
 }
 
+function showAllSumAmountByCategoryId() {
+                $.ajax({
+                    headers: {
+                        'Authorization': 'Bearer ' + currentUser.token
+                    },
+                    type: "GET",
+                    url: "http://localhost:8080/transactions/showAllSumAmountByCategoryId/" + 1,
+                    success: function (sum) {
+                        document.getElementById("sum1").innerHTML = sum;
+                    }
+                })
+            $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/showAllSumAmountByCategoryId/" + 2,
+        success: function (sum) {
+            document.getElementById("sum2").innerHTML = sum;
+        }
+    })
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/transactions/showAllSumAmountByCategoryId/" + 3,
+        success: function (sum) {
+            document.getElementById("sum3").innerHTML = sum;
+        }
+    })
+    document.getElementById("showTransaction").innerHTML = getContentCategoryList();
+}
 
-function showAllTransactionAndSumByDate(){
+
+
+
+
+
+function getContentCategoryList() {
+    return `<tr><th>NAME CATEGORY</th>
+            <th></th>
+            <th>SUM AMOUNT</th> </tr>
+            <tr>
+                <td>Chi Phí</td>
+                <td></td>
+                <td id="sum1"></td>
+            </tr>
+            <tr>
+                <td>Đi Vay</td>
+                <td></td>
+                <td id="sum2"></td>
+            </tr>
+            <tr>
+                <td>Thu Nhập</td>
+                <td></td>
+                <td id="sum3"></td>
+            </tr>`
+}
+
+
+function showAllTransactionAndSumByDate() {
     let a = $("#datetime").val();
     $.ajax({
         headers: {
@@ -240,7 +307,11 @@ function showAllTransactionAndSumByDate(){
         url: "http://localhost:8080/transactions/findDate/" + a,
 
         success: function (beta) {
-            let content = "";
+            let content = ` <tr>
+                <th scope="col">NAME</th>
+                <th scope="col">Date</th>
+                <th scope="col" class="text-right">Amount</th>
+            </tr>`;
             for (let i = 0; i < beta.length; i++) {
                 content += getContentTransaction(beta[i]);
             }
@@ -253,7 +324,7 @@ function showAllTransactionAndSumByDate(){
         },
         type: "GET",
         url: "http://localhost:8080/transactions/sumAmountExpenseByDate/" + a,
-        success: function (data){
+        success: function (data) {
             document.getElementById('expense').innerHTML = data;
 
         }
@@ -264,7 +335,7 @@ function showAllTransactionAndSumByDate(){
         },
         type: "GET",
         url: "http://localhost:8080/transactions/sumAmountIncomeByDate/" + a,
-        success: function (data){
+        success: function (data) {
             document.getElementById('income1').innerHTML = data;
 
         }
@@ -341,26 +412,26 @@ function page(a) {
     event.preventDefault();
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-    document.querySelectorAll('.sidebar .nav-link').forEach(function(element){
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.sidebar .nav-link').forEach(function (element) {
 
         element.addEventListener('click', function (e) {
 
             let nextEl = element.nextElementSibling;
-            let parentEl  = element.parentElement;
+            let parentEl = element.parentElement;
 
-            if(nextEl) {
+            if (nextEl) {
                 e.preventDefault();
                 let mycollapse = new bootstrap.Collapse(nextEl);
 
-                if(nextEl.classList.contains('show')){
+                if (nextEl.classList.contains('show')) {
                     mycollapse.hide();
                 } else {
                     mycollapse.show();
                     // find other submenus with class=show
                     var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
                     // if it exists, then close all of them
-                    if(opened_submenu){
+                    if (opened_submenu) {
                         new bootstrap.Collapse(opened_submenu);
                     }
                 }
