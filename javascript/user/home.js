@@ -237,10 +237,35 @@ function showAllTransactionByUserId() {
     getAmountByExpense();
     getAmountByIncome();
 }
-
+function showTransactionDetail(a) {
+    let id = a.getAttribute("href");
+    $.ajax({
+        type: "GET",
+        url: `http://localhost:8080/transactions/` + id,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        success: function (data) {
+            let content = `<tr><th>Id</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>File</th>
+                                <th>NameWallet</th></tr>
+                                <tr><td>${data.id}</td>
+                                <td>${data.name}</td>
+                                <td>${data.amount}</td>
+                                <td>${data.date}</td>
+                                <td><img width="150" height="150" src="../../img/${data.file}" crossOrigin="anonymous"></td>
+                                <td>${data.wallet.name}</td></tr>`
+            document.getElementById('showTransaction').innerHTML = content;
+        }
+    });
+    event.preventDefault();
+}
 
 function getContentTransaction(transaction) {
-    return `<tr> <td scope="row"><a style="color: white" href="#" data-toggle="modal" data-target="#exampleModal1" > <span class="fa fa-briefcase mr-1" id="categoryList"> </span>${transaction.name} </a></td>
+    return `<tr> <td scope="row"><a style="color: white" href="${transaction.id}" data-toggle="modal" data-target="#exampleModal1"onclick="showTransactionDetail(this)"> <span class="fa fa-briefcase mr-1" > </span>${transaction.name} </a></td>
                 <td class="text-muted">${transaction.date}</td>
                 <td class="d-flex justify-content-end align-items-center"> ${transaction.amount} </td> </tr>`;
 }
