@@ -217,7 +217,7 @@ function increaseBalance(amount) {
 function showAllTransactionByUserId() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/transactions/showAllTransByWalletId/" + currentUser.id,
+        url: "http://localhost:8080/transactions/showAllTransByWalletId/" + 1,
         headers: {
             'Authorization': 'Bearer ' + currentUser.token
         },
@@ -236,6 +236,7 @@ function showAllTransactionByUserId() {
     });
     getAmountByExpense();
     getAmountByIncome();
+
 }
 function showTransactionDetail(a) {
     let id = a.getAttribute("href");
@@ -263,6 +264,7 @@ function showTransactionDetail(a) {
     });
     event.preventDefault();
 }
+
 
 function getContentTransaction(transaction) {
     return `<tr> <td scope="row"><a style="color: white" href="${transaction.id}" data-toggle="modal" data-target="#exampleModal1"onclick="showTransactionDetail(this)"> <span class="fa fa-briefcase mr-1" > </span>${transaction.name} </a></td>
@@ -314,17 +316,17 @@ function getContentCategoryList() {
             <th></th>
             <th>SUM AMOUNT</th> </tr>
             <tr>
-                <td><button style="border: none; background-color: #212529; color: white">Chi Phí</button></td>
+                <td><button style="border: none; background-color: #212529; color: white" onclick="showAllTransactionByCategoryId1()">Chi Phí</button></td>
                 <td></td>
                 <td id="sum1"></td>
             </tr>
             <tr>
-                <td><button style="border: none; background-color: #212529; color: white">Đi Vay</button></td>
+                <td><button style="border: none; background-color: #212529; color: white" onclick="showAllTransactionByCategoryId2()">Đi Vay</button></td>
                 <td></td>
                 <td id="sum2"></td>
             </tr>
             <tr>
-                <td><button style="border: none; background-color: #212529; color: white">Thu Nhập</button></td>
+                <td><button style="border: none; background-color: #212529; color: white" onclick="showAllTransactionByCategoryId3()">Thu Nhập</button></td>
                 <td></td>
                 <td id="sum3"></td>
             </tr>`
@@ -445,10 +447,74 @@ function page(a) {
     });
     event.preventDefault();
 }
+function showAllTransactionByCategoryId1() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/transactions/findTransactionsByCategoryId/" + 1,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        success: function (data) {
+            let content = ` <tr>
+                <th scope="col">NAME</th>
+                <th scope="col">DATE</th>
+                <th scope="col" class="text-right">AMOUNT</th>
+            </tr>`;
+            for (let i = 0; i < data.length; i++) {
+                content += getContentTransaction(data[i]);
+            }
+            document.getElementById('showTransaction').innerHTML = content;
+            // document.getElementById('pageable').innerHTML = getPage(data);
+        }
+    });
+}function showAllTransactionByCategoryId2() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/transactions/findTransactionsByCategoryId/" + 2,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        success: function (data) {
+            let content = ` <tr>
+                <th scope="col">NAME</th>
+                <th scope="col">DATE</th>
+                <th scope="col" class="text-right">AMOUNT</th>
+            </tr>`;
+            for (let i = 0; i < data.length; i++) {
+                content += getContentTransaction(data[i]);
+            }
+            document.getElementById('showTransaction').innerHTML = content;
+            // document.getElementById('pageable').innerHTML = getPage(data);
+        }
+    });
+}function showAllTransactionByCategoryId3() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/transactions/findTransactionsByCategoryId/" + 3,
+        headers: {
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        success: function (data) {
+            let content = ` <tr>
+                <th scope="col">NAME</th>
+                <th scope="col">DATE</th>
+                <th scope="col" class="text-right">AMOUNT</th>
+            </tr>`;
+            for (let i = 0; i < data.length; i++) {
+                content += getContentTransaction(data[i]);
+            }
+            document.getElementById('showTransaction').innerHTML = content;
+            // document.getElementById('pageable').innerHTML = getPage(data);
+        }
+    });
+}
 
-getWalletByUser()
+getWalletByUser();
 getAmountByExpense();
 getAmountByIncome();
 showAllTransactionByUserId();
 getAllCategories();
 getUserInfo();
+showAllTransactionByCategoryId1();
+showAllTransactionByCategoryId2();
+showAllTransactionByCategoryId3();
